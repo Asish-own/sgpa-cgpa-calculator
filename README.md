@@ -89,7 +89,7 @@ If you have suggestions, ideas, or bug fixes:
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE.md).
+This project is licensed under the [MIT License](https://github.com/Asish-own/sgpa-cgpa-calculator/blob/main/LICENSE).
 
 ---
 
