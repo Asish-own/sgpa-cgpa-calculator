@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SGPA & CGPA Calculator (2024 Batch)</title>
+  <link rel="icon" href="assets/icon.png" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">🌓 Toggle Theme</button>
+  <div class="container">
+    <h2>📊 SGPA & CGPA Calculator</h2>
+
+    <div class="action-buttons">
+      <button onclick="showSGPA()">📘 SGPA Calculator</button>
+      <button onclick="showCGPA()">📕 CGPA Calculator</button>
+    </div>
+
+    <!-- SGPA Section -->
+    <div id="sgpaSection">
+      <div id="subjects"></div>
+      <div class="action-buttons">
+        <button onclick="addSubject()">➕ Add Subject</button>
+        <button onclick="calculateSGPA()">✅ Calculate SGPA</button>
+      </div>
+      <div class="result" id="result"></div>
+    </div>
+
+    <!-- CGPA Section -->
+    <div id="cgpaSection" style="display: none;">
+      <div id="cgpaInputs">
+        <input type="number" placeholder="Enter SGPA" step="0.01" />
+      </div>
+      <div class="action-buttons">
+        <button onclick="addSGPAInput()">➕ Add SGPA</button>
+        <button onclick="calculateCGPA()">🎓 Calculate CGPA</button>
+      </div>
+      <div class="result" id="cgpaResult"></div>
+    </div>
+
+    <div class="action-buttons">
+      <button onclick="downloadPDF()">📄 Export as PDF</button>
+    </div>
+
+    <footer>
+      Built with ❤️ by Asish | 2024 University Grading System
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

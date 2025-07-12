@@ -1,0 +1,303 @@
+:root {
+  /* Color Palette Refinement */
+  --bg-light: #f0f2f5; /* Lighter background for a cleaner look */
+  --bg-dark: #121212; /* Deeper dark for stronger contrast */
+  --text-light: #333333;
+  --text-dark: #e0e0e0;
+  --card-bg-light: rgba(255, 255, 255, 0.9); /* More opaque for better readability */
+  --card-bg-dark: rgba(29, 29, 29, 0.8); /* Slightly more opaque */
+  --btn-primary-light: #6a11cb; /* Richer purple */
+  --btn-primary-dark: #8e2de2; /* Brighter purple for dark mode */
+  --btn-secondary-light: #4299e1; /* A nice blue for secondary actions */
+  --btn-secondary-dark: #4a5568; /* Darker grey for secondary in dark mode */
+  --remove-btn-bg: #e53e3e; /* Standard red */
+  --remove-btn-hover: #c53030; /* Darker red on hover */
+  --gradient-start: #6a11cb; /* Consistent with primary button */
+  --gradient-end: #2575fc; /* A vibrant blue */
+  --shadow-light: rgba(0, 0, 0, 0.15);
+  --shadow-dark: rgba(0, 0, 0, 0.4);
+  --border-color-light: rgba(0, 0, 0, 0.1);
+  --border-color-dark: rgba(255, 255, 255, 0.08);
+  --footer-text-light: #555555; /* Specific dark grey for light mode footer */
+  --footer-text-dark: #cccccc; /* Specific light grey for dark mode footer */
+}
+
+/* Dark theme specific variables */
+[data-theme="dark"] {
+  background-color: var(--bg-dark); /* Ensure body background changes */
+  color: var(--text-dark);
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body {
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  color: var(--text-light); /* Default text color for light theme */
+}
+
+/* Animated background circles */
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  filter: blur(50px);
+  z-index: 0;
+}
+
+body::before {
+  width: 400px;
+  height: 400px;
+  background: var(--gradient-start);
+  top: -100px;
+  left: -100px;
+  animation: floatEffect 15s infinite ease-in-out;
+}
+
+body::after {
+  width: 300px;
+  height: 300px;
+  background: var(--gradient-end);
+  bottom: -100px;
+  right: -100px;
+  animation: floatEffect 20s infinite reverse ease-in-out;
+}
+
+@keyframes floatEffect {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 30px) scale(1.05); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+
+.container {
+  position: relative;
+  background: var(--card-bg-light);
+  border-radius: 20px;
+  padding: 2.5rem; /* Slightly more padding */
+  width: 100%;
+  max-width: 768px; /* A bit wider */
+  backdrop-filter: blur(25px); /* Stronger blur */
+  box-shadow: 0 12px 24px var(--shadow-light); /* Deeper shadow */
+  z-index: 1;
+  border: 1px solid var(--border-color-light);
+  animation: fadeIn 0.8s ease-out; /* Fade in effect for the container */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+[data-theme="dark"] .container {
+  background: var(--card-bg-dark);
+  box-shadow: 0 12px 24px var(--shadow-dark);
+  border: 1px solid var(--border-color-dark);
+}
+
+h2 {
+  text-align: center;
+  color: var(--btn-primary-light); /* Headings stand out */
+  margin-bottom: 2rem; /* More space below heading */
+  font-size: 2.2rem; /* Larger heading */
+  letter-spacing: 0.5px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] h2 {
+  color: var(--btn-primary-dark);
+  text-shadow: 1px 1px 2px rgba(255,255,255,0.1);
+}
+
+.subject {
+  display: flex;
+  gap: 15px; /* More space between inputs */
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  align-items: center; /* Vertically align items */
+}
+
+input, select {
+  padding: 12px 15px; /* More padding for a softer look */
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 12px; /* Slightly more rounded */
+  flex: 1;
+  min-width: 160px; /* Adjusted min-width */
+  background-color: rgba(255, 255, 255, 0.95); /* Almost opaque white */
+  color: var(--text-light);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Subtle inner shadow */
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select {
+  background-color: rgba(45, 55, 72, 0.7); /* Darker input background */
+  color: var(--text-dark);
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.05);
+}
+
+input::placeholder,
+select::placeholder {
+  color: var(--text-light);
+  opacity: 0.6; /* Slightly faded placeholder */
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] select::placeholder {
+  color: var(--text-dark);
+  opacity: 0.6;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--btn-primary-light), inset 0 1px 3px rgba(0,0,0,0.2); /* Brighter focus ring */
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] select:focus {
+  box-shadow: 0 0 0 3px var(--btn-primary-dark), inset 0 1px 3px rgba(255,255,255,0.1);
+}
+
+button {
+  padding: 12px 25px; /* More padding for buttons */
+  background-color: var(--btn-primary-light);
+  color: white;
+  border: none;
+  border-radius: 12px; /* Consistent with inputs */
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smoother transition */
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle button shadow */
+  display: inline-flex; /* For icon and text spacing */
+  align-items: center;
+  gap: 8px; /* Space between icon and text */
+}
+
+[data-theme="dark"] button {
+  background-color: var(--btn-primary-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(0); /* Press down effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.action-buttons button:nth-child(even) { /* Example: style every second button differently */
+    background-color: var(--btn-secondary-light);
+}
+
+[data-theme="dark"] .action-buttons button:nth-child(even) {
+    background-color: var(--btn-secondary-dark);
+}
+
+
+.remove-btn {
+  background: var(--remove-btn-bg);
+  padding: 8px 15px; /* Smaller padding for remove button */
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: none; /* No shadow for remove button */
+}
+
+.remove-btn:hover {
+  background: var(--remove-btn-hover);
+  transform: none; /* No lift effect for remove */
+  box-shadow: none;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* More gap */
+  margin: 2rem 0; /* More margin */
+  flex-wrap: wrap;
+}
+
+.result {
+  font-weight: 600; /* Slightly bolder */
+  font-size: 1.4rem; /* Larger result text */
+  color: var(--btn-primary-light); /* Color for result */
+  text-align: center;
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.15); /* Slightly stronger background */
+  padding: 15px 20px; /* More padding */
+  border-radius: 15px; /* More rounded */
+  box-shadow: inset 0 1px 5px rgba(0,0,0,0.1);
+  letter-spacing: 0.3px;
+}
+
+[data-theme="dark"] .result {
+  color: var(--btn-primary-dark);
+  background: rgba(45, 55, 72, 0.3);
+  box-shadow: inset 0 1px 5px rgba(255,255,255,0.05);
+}
+
+
+.theme-toggle {
+  position: absolute;
+  top: 25px; /* Slightly more off the edge */
+  right: 25px;
+  background-color: rgba(0, 0, 0, 0.3); /* Lighter dark for toggle */
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  z-index: 2;
+  backdrop-filter: blur(12px); /* Stronger blur */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+  text-align: center;
+  margin-top: 2rem; /* More space above footer */
+  font-size: 0.9rem;
+  color: var(--footer-text-light); /* Use the specific light mode footer color */
+  opacity: 0.8;
+}
+
+[data-theme="dark"] footer {
+  color: var(--footer-text-dark); /* Use the specific dark mode footer color */
+}
+
+/* Optional: Styles for visually hidden labels (if you add them for accessibility) */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
