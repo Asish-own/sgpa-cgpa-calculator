@@ -40,12 +40,11 @@
 body {
   background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+  /* Removed: display: flex, justify-content: center, align-items: center */
+  padding: 25px; /* Added padding to give space around the container */
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-y: auto; /* Allow vertical scrolling for the entire body if needed */
   color: var(--text-light); /* Default text color for light theme */
 }
 
@@ -97,7 +96,44 @@ body::after {
   z-index: 1;
   border: 1px solid var(--border-color-light);
   animation: fadeIn 0.8s ease-out; /* Fade in effect for the container */
+
+  /* NEW: For internal scrolling of the container */
+  margin: 25px auto; /* Centers the container horizontally and provides vertical margin */
+  max-height: calc(100vh - 50px); /* Limit height to viewport minus body padding (25px top + 25px bottom) */
+  overflow-y: auto; /* IMPORTANT: Makes the container scrollable vertically */
+  -webkit-overflow-scrolling: touch; /* Improves scrolling performance on iOS */
+  
+  /* Scrollbar styling for aesthetics (optional) */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--btn-primary-light) var(--card-bg-light); /* Firefox: thumb and track colors */
 }
+
+/* Scrollbar styling for Webkit browsers (Chrome, Safari) */
+.container::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.container::-webkit-scrollbar-track {
+  background: var(--card-bg-light); /* Color of the scrollbar track */
+  border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background-color: var(--btn-primary-light); /* Color of the scrollbar thumb */
+  border-radius: 10px;
+  border: 2px solid var(--card-bg-light); /* Border around the thumb */
+}
+
+/* Dark theme scrollbar styling */
+[data-theme="dark"] .container::-webkit-scrollbar-track {
+  background: var(--card-bg-dark);
+}
+
+[data-theme="dark"] .container::-webkit-scrollbar-thumb {
+  background-color: var(--btn-primary-dark);
+  border: 2px solid var(--card-bg-dark);
+}
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
@@ -300,4 +336,9 @@ footer {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+/* NEW: CSS for hiding elements during PDF export */
+.pdf-hide {
+    display: none !important;
 }

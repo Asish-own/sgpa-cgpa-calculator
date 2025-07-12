@@ -30,7 +30,10 @@ function calculateSGPA() {
   let valid = true;
 
   subjects.forEach(subject => {
-    const [name, gradeSelect, creditInput] = subject.querySelectorAll('input, select');
+    // Correctly select input and select elements within the current subject div
+    const gradeSelect = subject.querySelector('select');
+    const creditInput = subject.querySelector('input[type="number"]');
+
     const gradePoint = parseFloat(gradeSelect.value);
     const credit = parseFloat(creditInput.value);
 
@@ -88,15 +91,33 @@ function toggleTheme() {
 }
 
 function downloadPDF() {
-  const element = document.querySelector('.container');
+  const element = document.querySelector('.container'); // Targets the entire calculator container
+
+  // NEW: Temporarily hide elements not meant for the PDF
+  const elementsToHide = document.querySelectorAll('.action-buttons, .theme-toggle, footer');
+  elementsToHide.forEach(el => el.classList.add('pdf-hide'));
+
   const opt = {
     margin: 0.5,
     filename: 'SGPA_CGPA_Report.pdf',
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    html2canvas: { 
+      scale: 3, // Increased scale for better resolution (try 2, 3, or 4 if needed)
+      letterRendering: true, // Improves text rendering
+      dpi: 192, // Setting a higher DPI
+      // useCORS: true // Uncomment if you have external images/fonts not loading due to CORS
+    }, 
+    jsPDF: { 
+      unit: 'in', 
+      format: 'letter', 
+      orientation: 'portrait' 
+    }
   };
-  html2pdf().from(element).set(opt).save();
+  
+  html2pdf().from(element).set(opt).save().then(() => {
+    // NEW: Restore visibility of elements after PDF is generated
+    elementsToHide.forEach(el => el.classList.remove('pdf-hide'));
+  });
 }
 
 function showSGPA() {
@@ -109,5 +130,5 @@ function showCGPA() {
   document.getElementById("cgpaSection").style.display = "block";
 }
 
-// Initial setup
+// Initial setup: Add one subject input on page load
 addSubject();
